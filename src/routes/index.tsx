@@ -243,8 +243,8 @@ function InfoTab({ onOpenArticle }: { onOpenArticle: (id: "a1" | "a2") => void }
 
       <section className="grid gap-6 md:grid-cols-3">
         <div className="flex flex-col gap-3 rounded-lg border border-[var(--prus-border)] bg-white p-5 shadow-sm">
-          <h3 className="text-base font-semibold">Książka „Lalka"</h3>
-          <ImageSlot storageKey="prus_info_lalka" label="Zdjęcie książki „Lalka"" />
+          <h3 className="text-base font-semibold">Książka „Lalka”</h3>
+          <ImageSlot storageKey="prus_info_lalka" label="Zdjęcie książki „Lalka”" />
         </div>
         <button
           onClick={() => onOpenArticle("a1")}
