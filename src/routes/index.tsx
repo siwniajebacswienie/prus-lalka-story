@@ -288,7 +288,7 @@ function InfoTab({ onOpenArticle }: { onOpenArticle: (id: "a1" | "a2") => void }
 
       <section className="grid gap-6 md:grid-cols-3">
         <div className="rounded-lg border border-[var(--prus-border)] bg-white p-5 shadow-sm">
-          <ImageSlot label="Książka „Lalka”" />
+          <StaticImage src={lalkaImg.url} alt="Okładka książki „Lalka”" />
         </div>
         <button
           onClick={() => onOpenArticle("a1")}
