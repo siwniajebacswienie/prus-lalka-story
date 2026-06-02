@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bolesław Prus · „Lalka" — strona informacyjna</title>
+<style>
+  :root {
+    --bg: #f7f7f9;
+    --bg-soft: #eef0f4;
+    --border: #d9dde3;
+    --text: #1f2330;
+    --muted: #6b7280;
+    --accent: #1e3a8a;
+    --accent-dark: #152a63;
+    --white: #ffffff;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  header h1 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  header h1 em { font-style: italic; }
+  nav { display: flex; flex-wrap: wrap; gap: 4px; }
+  nav button {
+    background: none;
+    border: none;
+    border-radius: 6px;
+    padding: 7px 13px;
+    font-size: 0.875rem;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--text);
+    transition: background 0.15s;
+  }
+  nav button:hover { background: var(--bg-soft); }
+  nav button.active { background: var(--accent); color: #fff; }
+
+  /* MAIN */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 20px 60px;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .card p {
+    margin-bottom: 1em;
+    line-height: 1.75;
+    font-size: 15px;
+  }
+  .card p:last-child { margin-bottom: 0; }
+
+  /* GRID LAYOUTS */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  @media (max-width: 750px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* SECTIONS */
+  .section-stack { display: flex; flex-direction: column; gap: 22px; }
+
+  /* IMAGE CARD */
+  .img-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 260px;
+    background: var(--bg-soft);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    max-height: 380px;
+  }
+
+  /* ARTICLE CARD (clickable) */
+  .art-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .art-card:hover { border-color: var(--accent); box-shadow: 0 4px 12px rgba(30,58,138,0.1); }
+  .art-card .tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+  }
+  .art-card h3 { font-size: 1.1rem; font-weight: 600; }
+  .art-card .desc { font-size: 0.875rem; color: var(--muted); line-height: 1.5; }
+  .art-card .read-more {
+    margin-top: auto;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--accent);
+  }
+
+  /* BACK BUTTON */
+  .btn-back {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 7px 14px;
+    font-size: 0.875rem;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--text);
+    transition: background 0.15s;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  .btn-back:hover { background: var(--bg-soft); }
+
+  /* PAGE TITLE */
+  .page-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+
+  /* ARTICLE TEXT */
+  .article-text {
+    line-height: 1.8;
+    font-size: 15px;
+  }
+  .article-text p { margin-bottom: 1.1em; }
+  .article-text p:last-child { margin-bottom: 0; }
+
+  /* FOOTER */
+  footer {
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 18px 20px;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  /* HIDDEN */
+  .page { display: none; }
+  .page.active { display: block; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <h1>Bolesław Prus &middot; <em>„Lalka"</em></h1>
+    <nav>
+      <button class="active" onclick="showTab('info', this)">Informacje</button>
+      <button onclick="showTab('biografia', this)">Biografia B. Prusa</button>
+      <button onclick="showTab('tworczosc', this)">Twórczość B. Prusa</button>
+      <button onclick="showTab('omnie', this)">O mnie</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===== TAB: INFO ===== -->
+  <div id="tab-info" class="page active">
+    <div class="section-stack">
+
+      <div class="grid-2">
+        <div class="card">
+          <p>Cześć! Strona (wciąż w rozbudowie) zawiera różnorodne informacje dotyczące literatury, a więc pisarzy, książek, epok literackich, filmowych ekranizacji. Skupiam się na przełomie XIX/XX wieku, jestem popularyzatorem twórczości polskich pisarzy, szczególnie Bolesława Prusa i jego najsłynniejszych powieści.</p>
+          <p>Jeśli też cenisz „Lalkę", lubisz wracać do najlepszej klasyki polskiej literatury, szanujesz lub chcesz lepiej poznać najcenniejsze książki — ZAPRASZAM!</p>
+        </div>
+        <div class="card">
+          <div class="img-wrap">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Boles%C5%82aw_Prus_photo.jpg/400px-Boles%C5%82aw_Prus_photo.jpg" alt="Bolesław Prus" />
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <p>Ten znakomity pisarz to także humanista, etyk i patriota, który namawiając nas do bycia „lepszymi" ludźmi kierował się bezinteresownie i wyłącznie naszym dobrem i dobrem kraju. Tacy ludzie zasługują na pamięć i szacunek, warto też zrozumieć ich pragnienia, dokonania i cele, o które walczyli karabinem, słowem lub piórem.</p>
+        <p>Nie mam zamiaru i prawa „dydaktyzować" lub pouczać, lecz chcę zwrócić Twoją uwagę na ciekawe aspekty życia Bolesława Prusa i pokazać go z innej, mniej znanej strony.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <div class="img-wrap">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Lalka_-_ok%C5%82adka_1890.jpg/400px-Lalka_-_ok%C5%82adka_1890.jpg" alt="Okładka książki Lalka" />
+          </div>
+        </div>
+        <button class="art-card" onclick="showArticle('a1')">
+          <span class="tag">Podstrona</span>
+          <h3>Artykuł 1</h3>
+          <p class="desc">Bolesław Prus – co o nim wiesz?</p>
+          <span class="read-more">Czytaj →</span>
+        </button>
+        <button class="art-card" onclick="showArticle('a2')">
+          <span class="tag">Podstrona</span>
+          <h3>Artykuł 2</h3>
+          <p class="desc">„Lalka" i jej 5 kontynuacji.</p>
+          <span class="read-more">Czytaj →</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== TAB: BIOGRAFIA ===== -->
+  <div id="tab-biografia" class="page">
+    <h2 class="page-title">Biografia B. Prusa</h2>
+    <div class="card article-text">
+      <p><strong>Młodość pisarza</strong></p>
+      <p>Znany pod pseudonimem Bolesław Prus pisarz Aleksander Głowacki urodził się 20 sierpnia 1847 roku w Hrubieszowie. Jego rodzice wywodzili się z zubożałej szlachty i posiadali trochę ziemi, która jednak nie przynosiła im zysków. Chłopiec szybko stał się sierotą. Po śmierci matki i ojca kilkulatkiem zajęła się babka, a parę lat później zamieszkał u ciotki Domiceli Olszewskiej w Lublinie. Tam także rozpoczęła się jego edukacja. Kontynuował ją w Kielcach, dokąd przeprowadził się wraz z bratem Leonem. Za jego namową wziął udział w powstaniu styczniowym, podczas którego został ranny i dostał się do niewoli. Tylko dzięki wstawiennictwu ciotki i młodemu wiekowi udało mu się powrócić do domu. Po ukończeniu gimnazjum Prus zdecydował się na studia na Wydziale Matematyczno-Fizycznym w warszawskiej Szkole Głównej. Borykał się jednak z problemami finansowymi, gdyż praca korepetytora nie przynosiła mu dużych zysków, co poskutkowało porzuceniem nauki. Imał się różnych zawodów, w końcu próbując swoich sił w pisaniu tekstów.</p>
+      <p><strong>Rozpoczęcie działalności pisarskiej</strong></p>
+      <p>Za debiut Prusa powszechnie uważa się artykuł społeczny „Nasze grzechy" opublikowany w 1872 roku na łamach czasopisma „Opiekun Domowy". To właśnie wtedy rozpoczęła się przygoda pisarza z dziennikarstwem. Ukazały się zarówno jego pierwsze teksty popularnonaukowe, jak i felietony. Zdecydował wówczas, że swoim nazwiskiem podpisze tylko poważne artykuły, a inną twórczość artystyczną będzie wydawał pod pseudonimem. Profesja publicysty przyniosła Prusowi stabilizację finansową i możliwość rozwoju w wielu kierunkach. Wiązał się z różnymi czasopismami, a jego dużym sukcesem stało się objęcie redakcji tygodnika „Nowiny" w 1882 roku. W latach 1887–1889 napisał „Lalkę", dzięki której zyskał ogromną popularność. Pogrzeb zmarłego na atak serca pisarza odbył się w maju 1912 roku i zgromadził tłumy miłośników jego twórczości.</p>
+      <p><strong>Twórczość Bolesława Prusa</strong></p>
+      <p>Na Prusa ogromny wpływ miały czasy, w jakich przyszło mu żyć. Popularne wówczas prądy literackie związane z pozytywizmem odcisnęły wielki ślad na twórczości pisarza. Widać to zarówno w formach, jakie przyjęły jego teksty (nowele, powieści lub opowiadania), jak i w poruszonej w utworach problematyce. Wczesna proza obracała się przede wszystkim wokół panujących na ziemiach polskich różnic społecznych oraz bezcelowości biernego życia potomków szlachty.</p>
+      <p><strong>Najważniejsze utwory Prusa</strong></p>
+      <p>Powieści: „Lalka", „Anielka", „Faraon", „Emancypantki", „Placówka"<br>
+      Nowele: „Antek", „Katarynka", „Kamizelka", „Nawrócony", „Z legend dawnego Egiptu"</p>
+    </div>
+  </div>
+
+  <!-- ===== TAB: TWÓRCZOŚĆ ===== -->
+  <div id="tab-tworczosc" class="page">
+    <h2 class="page-title">Twórczość B. Prusa</h2>
+    <div class="card article-text">
+      <p>Twórczość Bolesława Prusa obejmuje przede wszystkim powieści, nowele, opowiadania i felietony. Był jednym z najważniejszych pisarzy polskiego pozytywizmu.</p>
+      <p><strong>Powieści:</strong><br>
+      – Lalka<br>– Faraon<br>– Emancypantki<br>– Placówka<br>– Dzieci</p>
+      <p><strong>Nowele i opowiadania:</strong><br>
+      – Kamizelka<br>– Katarynka<br>– Antek<br>– Michałko<br>– Powracająca fala</p>
+      <p><strong>Tematyka twórczości:</strong><br>
+      – życie codzienne Polaków w XIX wieku,<br>
+      – problemy społeczne i bieda,<br>
+      – edukacja i rozwój nauki,<br>
+      – los ludzi ubogich,<br>
+      – patriotyzm i przemiany społeczne.</p>
+      <p>Bolesław Prus był pisarzem epoki pozytywizmu. Pisał powieści, nowele i felietony. Jego najbardziej znane utwory to „Lalka", „Faraon", „Placówka", „Katarynka" i „Kamizelka".</p>
+    </div>
+  </div>
+
+  <!-- ===== TAB: O MNIE ===== -->
+  <div id="tab-omnie" class="page">
+    <h2 class="page-title">O mnie</h2>
+    <div class="card article-text">
+      <p>Strona poświęcona Bolesławowi Prusowi i jego twórczości — w szczególności powieści „Lalka". Powstała z pasji do polskiej literatury przełomu XIX i XX wieku oraz z chęci popularyzacji dorobku Prusa wśród współczesnych czytelników.</p>
+    </div>
+  </div>
+
+  <!-- ===== ARTICLE: A1 ===== -->
+  <div id="article-a1" class="page">
+    <button class="btn-back" onclick="backToInfo()">← Wróć</button>
+    <h2 class="page-title">Artykuł 1 — Bolesław Prus – co o nim wiesz?</h2>
+    <div class="card article-text">
+      <p>Mam nadzieję, Szanowny Czytelniku i Droga Czytelniczko, że już znasz powszechny pogląd, że „Bolesław Prus był pisarzem, autorem słynnej powieści pt. „Lalka" oraz kilku małych, niezwykle udanych opowiadań lub nowel, na przykład „Kamizelki", „Antka", „Katarynki" i zgadzasz się z tą tezą.</p>
+      <p>Zatrzymajmy się chwilę przy powyższym stwierdzeniu, gdyż taką właśnie wiedzę ma większość polskich czytelników, o ile tylko uważali na lekcjach języka polskiego i upływ czasu nie zatarł im tego faktu w pamięci.</p>
+      <p>Znając powyższe fakty, skrótowo dopowiem, że do powieści autorstwa Prusa, „okazałych" jakością, przesłaniem i objętością stron, zaliczamy także „Emancypantki", „Faraona" i „Placówkę", a tych „krótszych" – „Anielkę", „Dzieci" i „Dusze w niewoli", zaś zwięzłych i pięknych nowel i opowiadań napisał Prus co najmniej dwadzieścia!</p>
+      <p>Otóż fakt, że Bolesław Prus był pisarzem to, według mnie, około 10% wiedzy o nim, czyli wiedzy, kim był, co myślał, czego się bał, o co walczył, o co apelował i prosił, przed czym przestrzegał nas, Polaków i czego pragnął dla udręczonego kraju, ukochanej ojczyzny, będącej wówczas pod zaborami.</p>
+      <p>Prus był więc:</p>
+      <p>2. Współtwórcą polskiego realizmu, czołowym przedstawicielem pozytywizmu i naturalizmu;<br>
+      3. Najwytrwalszym kronikarzem Warszawy i wybornym felietonistą, czym zajmował się aż 37 lat (napisał 345 kronik w „Kurierze Warszawskim", 373 felietonów w „Kurierze Codziennym" oraz 178 kronik w „Tygodniku Ilustrowanym");<br>
+      4. Publicystą i de facto pierwszym polskim profesjonalnym, „zawodowym" literatem;<br>
+      5. Estetykiem i myślicielem, a jego teksty charakteryzuje wyraźny dydaktyzm;<br>
+      6. Teoretykiem prasy, rzeźby, malarstwa, architektury, teatru, fotografii, grafiki artystycznej;<br>
+      7. Popularyzatorem wiedzy i nauki – prowadził odczyty dla robotników i rzemieślników;<br>
+      8. Utylitarystą i propagatorem tzw. „pracy u podstaw";<br>
+      9. Społecznikiem – według własnej koncepcji „bycia użytecznym";<br>
+      10. Patriotą i przykładnym obywatelem, szczególnie miasta Warszawy, w której został pochowany — na jego nagrobku widnieje sentencja „Serce serc".</p>
+      <p>Miał trudne dzieciństwo, a już w wieku szesnastu lat wziął udział w Powstaniu Styczniowym i sam później skonkludował: „Ja, dawny ja, pochowany jestem razem z moimi nadziejami pod Białką, skąd drugi Ja wyrósł: dwumiesięczne szaleństwo, zwątpienie w tego rodzaju zabawy i kalectwo…"</p>
+      <p>Profil FB: <a href="https://www.facebook.com/WokulskiStach" target="_blank" style="color:var(--accent)">https://www.facebook.com/WokulskiStach</a></p>
+    </div>
+  </div>
+
+  <!-- ===== ARTICLE: A2 ===== -->
+  <div id="article-a2" class="page">
+    <button class="btn-back" onclick="backToInfo()">← Wróć</button>
+    <h2 class="page-title">Artykuł 2 — „Lalka" i jej 5 kontynuacji</h2>
+    <div class="card article-text">
+      <p>Książki posiadają wielką siłę i magię, szczególnie te będące arcydziełami i skarbami literatury danego kraju. Bez wątpienia do tej elity należy powieść „Lalka" autorstwa Bolesława Prusa. Jej treść potrafią wywrzeć silne emocje i zadumę, gdyż rację miał pisarz twierdząc w roku 1889 w jednej ze swoich kronik tygodniowych, że: „kto 'Lalkę' przeżył, wiele przeżył".</p>
+      <p>Jakie były późniejsze koleje wszystkich jej bohaterów, skoro Bolesław Prus pozostawił zakończenie otwarte? Autor celowo nie rozstrzygnął losów jej postaci (z wyjątkiem Ignacego Rzeckiego). Po przeczytaniu książki większość osób analizuje wydarzenia i zachowania bohaterów „Lalki" snując przewidywania dalszych kolei ich życia: Czy Izabela Łęcka pozostanie w wiedeńskim klasztorze? Wokulski zginął wysadzając ruiny zamku w Zasławiu, czy wrócił do pracowni Geista w Paryżu?</p>
+      <p>Wybrałem i przedstawiam pięć tytułów — kontynuacji „Lalki":</p>
+      <p>1. <strong>„Alkaloid"</strong> — autor pod pseudonimem Aleksander Głowacki. Wyd. Powergraph, Warszawa 2012. Wokulski w Azji Wschodniej, podróże w czasie, narkotyki, Tesla, Einstein, Witkacy, Ochocki, fantastyka.</p>
+      <p>2. <strong>„Córka Wokulskiego"</strong> — autor Roman Praszyński. Wyd. mwk, Warszawa 2012. Córka Wokulskiego Natalia, cyrk, przemoc, Rosja.</p>
+      <p>3. <strong>„LALKI"</strong> — autorka Alicja Pruś. Wyd. Siedmioróg, Wrocław 2013. Wokulski, śledztwo, baron Krzeszowski, Meliton, Stawska, lalki, opis wielu miejsc Warszawy.</p>
+      <p>4. <strong>„Stanisław i Izabela – Epilog Lalki"</strong> — autor Piotr S. Wirski. Wyd. Oficyna Wydawnicza MOST, Warszawa 1997. Najdelikatniejsza i najszczęśliwsza z kontynuacji — napisana w duchu i poszanowaniu oryginalnej koncepcji literackiej Prusa.</p>
+      <p>5. <strong>„Wokulski w Paryżu"</strong> — autor Krzysztof Rutkowski. Wyd. słowo/obraz/terytoria, Gdańsk 2010. Wokulski, Paryż, Suzin, Geist, melancholia i filozofia.</p>
+      <p>Już wiesz, że mamy do wyboru kilka publikacji, a każda minuta poświęcona „Lalce" lub książkom jej dedykowanym jest wartościowa — dlatego często powtarzam: #lalkaforever</p>
+      <p>Instagram: <a href="https://www.instagram.com/wokulski_prus/" target="_blank" style="color:var(--accent)">@wokulski_prus</a></p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Strona o Bolesławie Prusie i powieści „Lalka".
+</footer>
+
+<script>
+  const tabs = ['info','biografia','tworczosc','omnie'];
+
+  function showTab(name, btn) {
+    // hide all pages
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    // show tab
+    document.getElementById('tab-' + name).classList.add('active');
+    // update nav buttons
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function showArticle(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('article-' + id).classList.add('active');
+  }
+
+  function backToInfo() {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('tab-info').classList.add('active');
+    document.querySelectorAll('nav button')[0].classList.add('active');
+  }
+</script>
+
+</body>
+</html>
