@@ -4,11 +4,11 @@ import { useEffect, useRef, useState, type ChangeEvent } from "react";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Bolesław Prus i „Lalka" — strona informacyjna" },
+      { title: 'Bolesław Prus i „Lalka” — strona informacyjna' },
       {
         name: "description",
         content:
-          "Strona o Bolesławie Prusie i jego powieści „Lalka": biografia, twórczość i informacje.",
+          'Strona o Bolesławie Prusie i jego powieści „Lalka”: biografia, twórczość i informacje.',
       },
     ],
   }),
