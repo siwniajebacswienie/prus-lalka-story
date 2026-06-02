@@ -278,7 +278,7 @@ function InfoTab({ onOpenArticle }: { onOpenArticle: (id: "a1" | "a2") => void }
           <Paragraphs text={WSTEP} />
         </div>
         <div className="rounded-lg border border-[var(--prus-border)] bg-white p-5 shadow-sm">
-          <ImageSlot label="Zdjęcie B. Prusa" />
+          <StaticImage src={prusImg.url} alt="Bolesław Prus" />
         </div>
       </section>
 
