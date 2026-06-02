@@ -26,60 +26,10 @@ const TABS: { id: TabId; label: string }[] = [
   { id: "omnie", label: "O mnie" },
 ];
 
-function ImageSlot({ label }: { label: string }) {
-  const [src, setSrc] = useState("");
-  const [url, setUrl] = useState("");
-  const fileRef = useRef<HTMLInputElement>(null);
-
-  const onFile = (e: ChangeEvent<HTMLInputElement>) => {
-    const f = e.target.files?.[0];
-    if (!f) return;
-    const reader = new FileReader();
-    reader.onload = () => setSrc(String(reader.result));
-    reader.readAsDataURL(f);
-  };
-
+function StaticImage({ src, alt }: { src: string; alt: string }) {
   return (
-    <div className="flex h-full flex-col gap-3">
-      <div className="flex flex-1 items-center justify-center overflow-hidden rounded-md border border-dashed border-[var(--prus-border)] bg-[var(--prus-bg-soft)] min-h-[240px]">
-        {src ? (
-          <img src={src} alt={label} className="h-full w-full object-cover" />
-        ) : (
-          <span className="px-4 py-12 text-center text-sm text-[var(--prus-muted)]">
-            {label}
-          </span>
-        )}
-      </div>
-      <div className="flex flex-col gap-2 sm:flex-row">
-        <button
-          type="button"
-          onClick={() => fileRef.current?.click()}
-          className="rounded-md bg-[var(--prus-accent)] px-3 py-2 text-sm font-medium text-white transition hover:bg-[var(--prus-accent-dark)]"
-        >
-          Wgraj zdjęcie
-        </button>
-        <input
-          ref={fileRef}
-          type="file"
-          accept="image/*"
-          className="hidden"
-          onChange={onFile}
-        />
-        <input
-          type="url"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-          placeholder="…lub wklej URL zdjęcia"
-          className="flex-1 rounded-md border border-[var(--prus-border)] bg-white px-3 py-2 text-sm outline-none focus:border-[var(--prus-accent)]"
-        />
-        <button
-          type="button"
-          onClick={() => url && setSrc(url)}
-          className="rounded-md border border-[var(--prus-border)] bg-white px-3 py-2 text-sm font-medium text-[var(--prus-text)] transition hover:bg-[var(--prus-bg-soft)]"
-        >
-          Ustaw
-        </button>
-      </div>
+    <div className="flex h-full items-center justify-center overflow-hidden rounded-md bg-[var(--prus-bg-soft)] min-h-[260px]">
+      <img src={src} alt={alt} className="h-full w-full object-contain" />
     </div>
   );
 }
